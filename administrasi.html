@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchiPro | Administrasi Member Stabil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS DARI STYLE.CSS (RINGKAS & STABIL) */
+        
+        :root {
+            --primary-color: #2c3e50; /* Biru Tua */
+            --accent-color: #3498db; /* Biru Cerah */
+            --secondary-accent: #e74c3c; /* Merah-Oranye */
+            --light-bg: #f8f8fb;
+            --text-color: #444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo-area {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- Dropdown Member --- */
+        .member-nav {
+            position: relative;
+            display: inline-block;
+        }
+
+        .member-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 15px;
+            font-size: 0.9em;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .member-btn:hover { background-color: #2980b9; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--light-bg);
+            color: var(--accent-color);
+        }
+
+        .show {
+            display: block; /* Kelas yang digunakan JS */
+        }
+
+        /* --- Konten Halaman & Otentikasi --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .page-content {
+            min-height: 70vh;
+        }
+
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .auth-card form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-card input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .auth-card button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        #registerPage button { background-color: var(--secondary-accent); }
+        #registerPage button:hover { background-color: #c0392b; }
+
+        .auth-card p { margin-top: 20px; font-size: 0.9em; }
+        .auth-card p a { color: var(--accent-color); text-decoration: none; cursor: pointer; }
+        
+        /* --- Gaya Home/Dashboard Sederhana --- */
+        .hero, .dashboard-content {
+            padding: 80px 40px;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .hero h2 { color: var(--primary-color); }
+
+        .cta-button {
+            background-color: var(--secondary-accent);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .cta-button:hover { background-color: #c0392b; }
+
+        .dashboard-content h2 { font-size: 2em; }
+        .dashboard-content p { margin: 15px 0; }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-area" onclick="showPage('homePage')">
+            <i class="fas fa-drafting-compass"></i> ArchiPro
+        </div>
+        
+        <nav class="member-nav">
+            <button class="member-btn" onclick="toggleDropdown()" aria-label="Menu Member">
+                <i class="fas fa-user-circle"></i> Admin Member <i class="fas fa-caret-down"></i>
+            </button>
+            <div id="memberDropdown" class="dropdown-content">
+                <a href="javascript:void(0)" onclick="showPage('loginPage')"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="javascript:void(0)" onclick="showPage('registerPage')"><i class="fas fa-user-plus"></i> Registrasi</a>
+                <a href="javascript:void(0)" onclick="showPage('dashboardPage')" id="dashboardLink" style="display: none;"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="javascript:void(0)" onclick="handleLogout()" id="logoutLink" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="homePage" class="page-content">
+            <section class="hero">
+                <h2>Selamat Datang di Portal ArchiPro</h2>
+                <p>Kelola desain dan konsultasi arsitektur Anda dengan mudah sebagai member.</p>
+                <button class="cta-button" onclick="showPage('registerPage')">Gabung Sekarang <i class="fas fa-arrow-right"></i></button>
+            </section>
+        </div>
+
+        <div id="loginPage" class="page-content" style="display: none;">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Login Member</h2>
+                    <form id="loginForm">
+                        <input type="email" id="loginEmail" placeholder="Email Anda" required>
+                        <input type="password" id="loginPassword" placeholder="Kata Sandi" required>
+                        <button type="submit">Login <i class="fas fa-sign-in-alt"></i></button>
+                    </form>
+                    <p>Belum punya akun? <a onclick="showPage('registerPage')">Daftar sekarang</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="registerPage" class="page-content" style="display: none;">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Daftar Member Baru</h2>
+                    <form id="registerForm">
+                        <input type="text" id="regName" placeholder="Nama Lengkap" required>
+                        <input type="email" id="regEmail" placeholder="Email Anda" required>
+                        <input type="password" id="regPassword" placeholder="Kata Sandi (min 6)" required minlength="6">
+                        <input type="password" id="regConfirmPassword" placeholder="Konfirmasi Kata Sandi" required>
+                        <button type="submit">Registrasi <i class="fas fa-user-plus"></i></button>
+                    </form>
+                    <p>Sudah punya akun? <a onclick="showPage('loginPage')">Login di sini</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="dashboardPage" class="page-content" style="display: none;">
+            <div class="dashboard-content">
+                <h2><i class="fas fa-chart-line"></i> Dashboard Member ArchiPro</h2>
+                <p>Selamat datang! Di sini Anda dapat mengelola proyek, janji temu konsultasi, dan profil Anda.</p>
+                <p>Ini membuktikan administrasi member Anda berhasil diimplementasikan.</p>
+                <button class="cta-button" onclick="showPage('homePage')">Lihat Katalog Utama <i class="fas fa-house"></i></button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ArchiPro. Administrasi Member.</p>
+    </footer>
+
+    <script>
+        // ========================================
+        // FUNGSI NAVIGASI DAN DROPDOWN
+        // ========================================
+
+        // Mengganti tampilan halaman (Simulasi SPA)
+        function showPage(pageId) {
+            // Sembunyikan semua div konten halaman
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+            // Tampilkan div yang diminta
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            // Tutup dropdown dan perbarui menu member
+            document.getElementById("memberDropdown").classList.remove("show");
+            updateMemberMenu();
+        }
+
+        // Menampilkan/menyembunyikan Dropdown
+        function toggleDropdown() {
+            document.getElementById("memberDropdown").classList.toggle("show");
+        }
+
+        // Menutup dropdown jika user mengklik di luar
+        window.onclick = function(event) {
+            // Jika target klik BUKAN tombol dropdown atau ikon di dalamnya
+            if (!event.target.matches('.member-btn, .member-btn *')) {
+                document.getElementById("memberDropdown").classList.remove('show');
+            }
+        }
+        
+        // ========================================
+        // FUNGSI ADMINISTRASI MEMBER
+        // ========================================
+
+        // Memperbarui tampilan menu berdasarkan status login
+        function updateMemberMenu() {
+            const isLoggedIn = localStorage.getItem('userToken') ? true : false;
+            
+            const loginLink = document.querySelector('a[onclick="showPage(\'loginPage\')"]');
+            const registerLink = document.querySelector('a[onclick="showPage(\'registerPage\')"]');
+            const dashboardLink = document.getElementById('dashboardLink');
+            const logoutLink = document.getElementById('logoutLink');
+            const memberBtn = document.querySelector('.member-btn');
+
+            if (isLoggedIn) {
+                // Tampilan setelah Login
+                loginLink.style.display = 'none';
+                registerLink.style.display = 'none';
+                dashboardLink.style.display = 'flex'; 
+                logoutLink.style.display = 'flex';     
+                memberBtn.innerHTML = '<i class="fas fa-user-circle"></i> Halo, Member <i class="fas fa-caret-down"></i>';
+            } else {
+                // Tampilan sebelum Login
+                loginLink.style.display = 'flex'; 
+                registerLink.style.display = 'flex'; 
+                dashboardLink.style.display = 'none'; 
+                logoutLink.style.display = 'none';   
+                memberBtn.innerHTML = '<i class="fas fa-user-circle"></i> Admin Member <i class="fas fa-caret-down"></i>';
+            }
+        }
+
+        // Fungsi untuk Logout
+        function handleLogout() {
+            if (confirm("Apakah Anda yakin ingin logout?")) {
+                localStorage.removeItem('userToken'); 
+                alert("Anda telah berhasil logout!");
+                showPage('homePage'); // Kembali ke beranda
+            }
+        }
+        
+        // ========================================
+        // LOGIKA FORM (SIMULASI)
+        // ========================================
+        
+        // Form Registrasi
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert("Kata Sandi dan Konfirmasi Kata Sandi tidak cocok.");
+                return;
+            }
+            // SIMULASI: Sukses registrasi
+            alert("Registrasi Berhasil! Silakan Login.");
+            this.reset();
+            showPage('loginPage');
+        });
+        
+        // Form Login
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Kredensial SIMULASI: member@archipro.com / rahasia123
+            if (email === "member@archipro.com" && password === "rahasia123") {
+                localStorage.setItem('userToken', 'fake-jwt-token'); // Simpan token
+                alert("Login Berhasil! Anda akan diarahkan ke Dashboard.");
+                this.reset();
+                showPage('dashboardPage');
+            } else {
+                alert("Login Gagal. Email atau Kata Sandi salah.\nCoba: member@archipro.com / rahasia123");
+            }
+        });
+
+        // INIASIALISASI: Jalankan saat DOM selesai dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('homePage'); 
+        });
+    </script>
+</body>
+</html>
