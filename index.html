@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ArchiPro - Desain Rumah Modern, Minimalis, dan Kontemporer. Jelajahi portofolio kami dan jadwalkan konsultasi gratis.">
+    <meta name="keywords" content="desain rumah, arsitektur modern, minimalis, kontemporer, villa, urban">
+    <title>ArchiPro | Desain Rumah Modern</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="images/logo.png" alt="Logo ArchiPro - Perusahaan Desain Rumah Modern" class="logo">
+            <h1>ArchiPro</h1>
+        </div>
+        
+        <nav class="member-nav">
+            <button class="member-btn" onclick="toggleDropdown()" aria-label="Menu Member">
+                <i class="fas fa-user-circle"></i> Admin Member <i class="fas fa-caret-down"></i>
+            </button>
+            <div id="memberDropdown" class="dropdown-content">
+                <a href="#" aria-label="Login ke akun"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="#" aria-label="Daftar akun baru"><i class="fas fa-user-plus"></i> Registrasi</a>
+                <a href="#" aria-label="Akses dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="#" aria-label="Logout dari akun"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Rancang Rumah Impian Anda Bersama Kami</h2>
+                <p>Jelajahi portofolio desain arsitektur modern, minimalis, dan gaya hidup terkini.</p>
+                <button class="cta-button" onclick="scrollToCatalog()">Lihat Semua Katalog <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <section class="featured-projects">
+            <h3>Proyek Unggulan Kami</h3>
+            <div class="project-grid">
+                <div class="project-card">
+                    <img src="images/project-villa.jpg" alt="Villa Tropis Minimalis - Desain rumah dengan kombinasi alam dan kontemporer" loading="lazy">
+                    <div class="project-info">
+                        <h4>Villa Tropis Minimalis</h4>
+                        <p>Kombinasi elegan antara alam dan desain kontemporer.</p>
+                        <a href="#" class="view-project-btn" aria-label="Lihat detail proyek Villa Tropis Minimalis">Lihat Proyek <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/project-urban.jpg" alt="Rumah Kota Urban - Desain efisien untuk gaya hidup perkotaan" loading="lazy">
+                    <div class="project-info">
+                        <h4>Rumah Kota Urban</h4>
+                        <p>Desain efisien untuk gaya hidup perkotaan.</p>
+                        <a href="#" class="view-project-btn" aria-label="Lihat detail proyek Rumah Kota Urban">Lihat Proyek <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="images/project-family.jpg" alt="Rumah Keluarga Modern - Ruang nyaman untuk keluarga besar" loading="lazy">
+                    <div class="project-info">
+                        <h4>Keluarga Modern</h4>
+                        <p>Ruang nyaman dan fungsional untuk keluarga besar.</p>
+                        <a href="#" class="view-project-btn" aria-label="Lihat detail proyek Keluarga Modern">Lihat Proyek <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog" id="catalog">
+            <h3>Koleksi Layout Terbaru</h3>
+            <div class="layout-grid">
+                <div class="layout-card">
+                    <img src="images/layout-minimalis.jpg" alt="Layout Rumah Minimalis Scandinavian - 1 Lantai, 120m²" loading="lazy">
+                    <div class="card-body">
+                        <h4>Minimalis Scandinavian</h4>
+                        <p>Luas: 120m² | 3 Kamar Tidur | 2 Kamar Mandi</p>
+                        <div class="tags">
+                            <span>#minimalis</span><span>#scandinavian</span><span>#1lantai</span>
+                        </div>
+                        <button class="detail-btn" onclick="showDetail('Minimalis Scandinavian')">Lihat Detail <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="layout-card">
+                    <img src="images/layout-klasik.jpg" alt="Layout Rumah Klasik Eropa Modern - 2 Lantai, 300m²" loading="lazy">
+                    <div class="card-body">
+                        <h4>Klasik Eropa Modern</h4>
+                        <p>Luas: 300m² | 4 Kamar Tidur | 3 Kamar Mandi</p>
+                        <div class="tags">
+                            <span>#klasik</span><span>#mewah</span><span>#2lantai</span>
+                        </div>
+                        <button class="detail-btn" onclick="showDetail('Klasik Eropa Modern')">Lihat Detail <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="layout-card">
+                    <img src="images/layout-kontemporer.jpg" alt="Layout Rumah Kontemporer Urban - 180m², Fasad Unik" loading="lazy">
+                    <div class="card-body">
+                        <h4>Kontemporer Urban</h4>
+                        <p>Luas: 180m² | 3 Kamar Tidur | 3 Kamar Mandi</p>
+                        <div class="tags">
+                            <span>#kontemporer</span><span>#urban</span><span>#fasadunik</span>
+                        </div>
+                        <button class="detail-btn" onclick="showDetail('Kontemporer Urban')">Lihat Detail <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h3>Testimoni Klien</h3>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"ArchiPro membuat rumah impian saya menjadi kenyataan. Desainnya sempurna!"</p>
+                    <cite>- Budi Santoso</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Tim profesional dan hasil yang memuaskan. Sangat direkomendasikan."</p>
+                    <cite>- Siti Aminah</cite>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-consultation">
+            <h3>Ingin Desain Khusus?</h3>
+            <p>Tim arsitek kami siap membantu mewujudkan visi Anda. Jadwalkan konsultasi gratis sekarang!</p>
+            <form class="consultation-form">
+                <input type="text" placeholder="Nama Anda" required>
+                <input type="email" placeholder="Email Anda" required>
+                <button type="submit" class="cta-button secondary-btn">Jadwalkan Konsultasi <i class="fas fa-calendar-alt"></i></button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>ArchiPro</h3>
+                <p>Mewujudkan mimpi Anda menjadi kenyataan arsitektur.</p>
+                <div class="socials">
+                    <a href="#" aria-label="Kunjungi Facebook ArchiPro"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Kunjungi Twitter ArchiPro"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Kunjungi Instagram ArchiPro"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Kunjungi LinkedIn ArchiPro"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section links">
+                <h3>Tautan Cepat</h3>
+                <ul>
+                    <li><a href="#hero">Beranda</a></li>
+                    <li><a href="#catalog">Katalog</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h3>Kontak Kami</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Jl. Arsitektur No. 123, Kota Kreatif</p>
+                <p><i class="fas fa-phone"></i> (021) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@archipro.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ArchiPro. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
